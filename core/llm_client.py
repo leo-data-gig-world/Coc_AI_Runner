@@ -25,6 +25,13 @@ except ImportError:
 
 load_dotenv()
 
+# API keys come from Windows Credential Manager (see vault.py), never from files.
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parents[1]))
+import vault  # noqa: E402
+vault.load("OPENROUTER_API_KEY", "GOOGLE_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY")
+
 # Configure Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
